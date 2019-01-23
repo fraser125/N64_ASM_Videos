@@ -2,7 +2,7 @@
 The files complementing my video series N64 MIPS Assembly 
 
 Install the following software  
-**Optional**  
+**Optional**
 GCC for Windows - http://www.equation.com/servlet/equation.cmd?fa=fortran  
 GCC on Windows for N64 - https://cen64.com  
 Github Desktop - https://desktop.github.com  
