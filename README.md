@@ -24,6 +24,6 @@ The following code patterns have been adopted for this repository.
 * *.INC files contain variables, constants and macros.
 * *.S files contain functions usually wrapped in macros
 
-Jump labels that are for internal use only are prefixed with an underscore _internal_label
-Game library macros/functions are camelcase with a prefixed lowercase 'nus' as in Nintendo Ultra System
-System and Memory Layout macros are UPPERCASE
+Jump labels that are for internal use only are prefixed with an underscore _internal_label  
+Game library macros/functions are camelcase with a prefixed lowercase 'nus' as in Nintendo Ultra System  
+System and Memory Layout macros are UPPERCASE  
