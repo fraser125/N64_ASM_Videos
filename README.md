@@ -16,7 +16,7 @@ MAME - https://github.com/mamedev/mame/releases
 N64 BIOS (n64.zip) - https://ia800401.us.archive.org/zipview.php?zip=/35/items/MESS-0.151.BIOS.ROMs/MESS-0.151.BIOS.ROMs.zip  
 ARM9/bass - https://github.com/arm9/bass  
 * Compile yourself using GCC for your platform  
-* Download the version available http://here  
+* Download the version available https://sites.google.com/site/consoleprotocols/home/homebrew/n64-assembly-home/Lesson01  
 
 **Development Conventions**  
 The following code patterns have been adopted for this repository.
