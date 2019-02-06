@@ -1,7 +1,7 @@
 // N64 Header
 
 db $80
-db 0x37
+db $37
 db $12
 db $40
 
@@ -20,6 +20,6 @@ db   "N64 Lesson 2               "
 
 db $00 // Dev Id
 db $00 // Cart Id
-db $0 
-db $0
-db $0
+db $00 
+db $00
+db $00

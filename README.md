@@ -18,6 +18,12 @@ ARM9/bass - https://github.com/arm9/bass
 * Compile yourself using GCC for your platform  
 * Download the version available https://sites.google.com/site/consoleprotocols/home/homebrew/n64-assembly-home/Lesson01  
 
+** References **  
+VR4300 User Manual - http://n64dev.org/p/U10504EJ7V0UMJ1.pdf
+Wiki on MIPS Architecture - https://en.wikibooks.org/wiki/MIPS_Assembly/MIPS_Architecture
+Registers - http://n64dev.org/registers.html
+
+
 **Development Conventions**  
 The following code patterns have been adopted for this repository.
 * *.asm main program file.
