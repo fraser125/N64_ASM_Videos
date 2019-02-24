@@ -26,7 +26,7 @@ Think of it this way (not perfect, but feel free to read the pipeline chapter in
 The Branch and Jump Instructions take up 6 cycles so to take advantage of the extra 4 cycles left over use a Register to Register instruction.  
 Load and Store instructions are OK on N64 because they will block until they are complete, but will technically take an extra clock cycle. 
 
-Jump + R2R = 10 pipeline cycles aka 2 Clock cycles 
+Jump + R2R = 10 pipeline cycles aka 2 Clock cycles   
 Jump + L&S = 11 pipeline cycles aka 3 Clock cycles   
 Jump + Jump = 12 pipeline cycles and unpredictable behavior, just don't do it.  
 
