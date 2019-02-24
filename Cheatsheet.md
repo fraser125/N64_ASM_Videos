@@ -1,3 +1,4 @@
+## Registers  
 |Name|Description|Number|
 |---|---|---|
 | $zero | always zero | r0 |
@@ -11,8 +12,25 @@
 | $sp | Stack Pointer | r29 |
 | $ra | Return Address | r31 |
 
+## Delay Slot
+N64 has a 5 cycle Pipeline, some instructions use all of their cycles and other instruction use more.  
+**nop instruction is always a safe choice**  
+Think of it this way (not perfect, but feel free to read the pipeline chapter in the datasheet.  
 
+|Pipeline Cycles | Instruction Type |
+|---|---|
+|6 |Branch and Jump Instructions|
+|5 | Load and Store Instructions|
+|4 | Register to Register |
 
+The Branch and Jump Instructions take up 6 cycles so to take advantage of the extra 4 cycles left over use a Register to Register instruction.  
+Load and Store instructions are OK on N64 because they will block until they are complete, but will technically take an extra clock cycle. 
+
+Jump + R2R = 10 pipeline cycles aka 2 Clock cycles 
+Jump + L&S = 11 pipeline cycles aka 3 Clock cycles   
+Jump + Jump = 12 pipeline cycles and unpredictable behavior, just don't do it.  
+
+## Instructions  
 | Inst. | Description | Asm Example | C Example |  Psuedo | Exception? | Video |  
 |-------|-------------|-------------|-----------|---------|------------|-------|
 | ADDI | Add Immediate | addi t0, r0, 0x0180 | uint32_t t0 = 0 + 0x0180 |||003|  
