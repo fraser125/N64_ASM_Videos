@@ -12,7 +12,7 @@
 | $sp | Stack Pointer | r29 |
 | $ra | Return Address | r31 |
 
-## Delay Slot
+## Delay Slot (Video 005)
 N64 has a 5 cycle Pipeline, some instructions use all of their cycles and other instruction use more.  
 **nop instruction is always a safe choice**  
 Think of it this way (not perfect, but feel free to read the pipeline chapter in the datasheet.  
