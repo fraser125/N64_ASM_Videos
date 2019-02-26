@@ -1,7 +1,7 @@
 // N64 Lesson 02 Simple Initialize
 arch n64.cpu
 endian msb
-output "Video005.N64", create
+output "Video006.N64", create
 // 1024 KB + 4 KB = 1028 KB
 fill $0010'1000 // Set ROM Size
 
@@ -72,21 +72,23 @@ Start:	                 // NOTE: base $80001000
 	nop
 
 // Draw a Line (Horizontal)
-	// 15 rows from the top
-	// 110 Columns (110 + 100 + 110 = 320) 
-	// 100 Pixels long
+	// 20 rows from the top
+	// 100 Columns (110 + 100 + 110 = 320) 
+	// 200 Pixels tall
+	// 
 
-	lui t0, LAWN_GREEN16
-	ori t0, LAWN_GREEN16
+	lui t0, LIGHT_BLUE16
+	// ori t0, LIGHT_BLUE16
 	la t1, $A010'0000
 	
-	// 320 Pixels Wide	
-	addi t1, t1, ((320 * 15)  + 110) * 2
-	addi t2, t1, 200
+	// 320 Pixels Wide		
+	addi t1, t1, ((320 * 20)  + 100) * 2	
+	addi t2, r0, 200
 do_Store2Pixels:
-	sw t0, 0x0(t1)	
-	bne t1, t2, do_Store2Pixels
-	addi t1, t1, 4
+	sw t0, 0x0(t1)
+	addi t2, t2, -1	
+	bne t2, r0, do_Store2Pixels
+	addi t1, t1, 320 * 2
 	
 Loop:  // while(true);
 	j Loop
