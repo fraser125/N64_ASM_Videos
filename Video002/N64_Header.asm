@@ -15,8 +15,7 @@ db "CRC2"
 
 dd 0
 
-db   "N64 Video 002              "
-//   "123456789012345678901234567"
+db   "N64 Video 002              " // max 27 chars
 
 db $00 // Dev Id
 db $00 // Cart Id
