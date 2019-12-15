@@ -1,7 +1,7 @@
 // N64 Lesson 02 Simple Initialize
 arch n64.cpu
 endian msb
-output "Video004.N64", create
+output "Video003.N64", create
 // 1024 KB + 4 KB = 1028 KB
 fill $0010'1000 // Set ROM Size
 
