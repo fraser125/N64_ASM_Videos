@@ -71,7 +71,7 @@ Start:	                 // NOTE: base $80001000
 	nop
 	nop
 
-// Draw a Line (Horizontal)
+// Draw a Line (Verticle)
 	// 20 rows from the top
 	// 100 Columns (110 + 100 + 110 = 320) 
 	// 200 Pixels tall
