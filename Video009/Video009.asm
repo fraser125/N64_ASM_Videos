@@ -29,7 +29,7 @@ Start:	                 // NOTE: base $80001000
 	nop
 	
 	// pixel8_init16(yellow_blue, PAPAYA_WHIP16, LIGHT_STEEL_BLUE16) // 12,160 = 0x2F80 yellow foreground, blue background
-	pixel8_init16(red_silver, CRIMSON16, SILVER16) // yellow foreground, blue background
+	pixel8_init16(red_silver, CRIMSON16, SILVER16) // Red foreground, Silver background
 
 	nop
 	nop
@@ -38,6 +38,7 @@ Start:	                 // NOTE: base $80001000
 	// pixel8_static16(yellow_blue, fb1, 16, 16, hello_world_text, 12)
 	// top, left
 	// 10240, 10240 + 16
+	// font_name, framebuffer, top, left, string_label, length
 	pixel8_static16(red_silver, fb1, 32, 16, hello_world_text, 12)
 Loop:  // while(true);
 	j Loop
