@@ -68,6 +68,12 @@ constant sp(29)
 constant s8(30)
 constant ra(31)
 
+constant Count(9)
+constant Compare(11)
+constant Status(12)
+constant Cause(13)
+constant ErrorEPC(30)
+
 // N64 MIPS 4300 CP1 Floating Point Unit (FPU) Registers (COP1)
 constant f0(0)
 constant f1(1)
@@ -254,28 +260,57 @@ macro FORCE_PC(size) {
 define value(DEBUG_SHOW_STATIC_VALUE);
 
 macro FIXED_GAP(base, gap) {
-	if (pc() > {base} + {gap}) {
-		
+	if (pc() > {base} + {gap}) {		
 		error "Gap is greater than specified size "
 	}
 	while (pc() < {base} + {gap}) {
 		if {defined DEBUG_SHOW_STATIC_VALUE} {
-			db 0xAB
+			db 0xA5
 		} else {
 			db 0x0
 		}
 	}	
 }
 
-macro nusInit() { // Initialise N64 (Stop N64 From Crashing 5 Seconds After Boot)
+macro init() { // Initialise N64 (Stop N64 From Crashing 5 Seconds After Boot)
   lui a0,PIF_BASE // A0 = PIF Base Register ($BFC00000)
   ori t0,zero, 8
   sw t0,PIF_RAM+$3C(a0)
   // Stack location is max location of DMEM working towards zero  
-  li sp, 0xA400'0FFF
+  // li sp, 0xA400'0FFF & -4
+  // Alternate Stack Location if DMEM is completely used
+  // Put it at the very top of RAM and let it work down.
+	la t0, 0x80000318
+	lw t0, 0(t0)	 // 0x40'0000 or 0x80'0000	
+	lui t1, 0x8000
+	or t0, t0, t1
+	addi sp, t0, -4
 }
 
-macro nusDMACart2RAM(start, end, dest) { // DMA Data Copy Cart->DRAM: Start Cart Address, End Cart Address, Destination DRAM Address
+macro DMARAM2Cart(start, end, dest) { // DMA Data Copy Cart->DRAM: Start Cart Address, End Cart Address, Destination DRAM Address
+  lui a0,PI_BASE // A0 = PI Base Register ($A4600000)
+  -
+    lw t0,PI_STATUS(a0) // T0 = Word From PI Status Register ($A4600010)
+    andi t0,3 // AND PI Status With 3
+    bnez t0,- // IF TRUE DMA Is Busy
+    nop // Delay Slot
+
+  la t0,{dest}&$7FFFFF // T0 = Aligned DRAM Physical RAM Offset ($00000000..$007FFFFF 8MB)
+  sw t0,PI_DRAM_ADDR(a0) // Store RAM Offset To PI DRAM Address Register ($A4600000)
+  la t0,$10000000|({start}&$3FFFFFF) // T0 = Aligned Cart Physical ROM Offset ($10000000..$13FFFFFF 64MB)
+  sw t0,PI_CART_ADDR(a0) // Store ROM Offset To PI Cart Address Register ($A4600004)
+  la t0,({end}-{start})-1 // T0 = Length Of DMA Transfer In Bytes - 1
+  sw t0,PI_RD_LEN_LEN(a0) // Store DMA Length To PI Write Length Register ($A460000C)
+}
+macro DMAWait() {
+  lui a0,PI_BASE // A0 = PI Base Register ($A4600000)
+  -
+    lw t0,PI_STATUS(a0) // T0 = Word From PI Status Register ($A4600010)
+    andi t0,3 // AND PI Status With 3
+    bnez t0,- // IF TRUE DMA Is Busy
+    nop // Delay Slot
+}
+macro DMA(start, end, dest) { // DMA Data Copy Cart->DRAM: Start Cart Address, End Cart Address, Destination DRAM Address
   lui a0,PI_BASE // A0 = PI Base Register ($A4600000)
   -
     lw t0,PI_STATUS(a0) // T0 = Word From PI Status Register ($A4600010)
@@ -290,7 +325,6 @@ macro nusDMACart2RAM(start, end, dest) { // DMA Data Copy Cart->DRAM: Start Cart
   la t0,({end}-{start})-1 // T0 = Length Of DMA Transfer In Bytes - 1
   sw t0,PI_WR_LEN(a0) // Store DMA Length To PI Write Length Register ($A460000C)
 }
-
 macro STACK_PUSH(register) {
 	addiu sp, sp, -4
 	sw {register}, 0(sp)
