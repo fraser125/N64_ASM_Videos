@@ -13,7 +13,7 @@ Win7 Calculator - https://winaero.com/blog/get-calculator-from-windows-8-and-win
 
 ### Required  
 MAME - https://github.com/mamedev/mame/releases  
-N64 BIOS (n64.zip) - https://ia800401.us.archive.org/zipview.php?zip=/35/items/MESS-0.151.BIOS.ROMs/MESS-0.151.BIOS.ROMs.zip  
+N64 BIOS (n64.zip) - https://ia600206.us.archive.org/view_archive.php?archive=/13/items/MESS-0.151.BIOS.ROMs/MESS-0.151.BIOS.ROMs.zip  
 ARM9/bass - https://github.com/arm9/bass  
 * Compile yourself using GCC for your platform  
 * Download the version available at the bottom of this page  
